@@ -47,7 +47,7 @@ enodeb_network_reply = r_enodeb_network.json()
 
 enodeb_network_reply_dict = enodeb_network_reply[0]
 # print(enodeb_network_reply_dict['mccMncs'])
-cells_4g_network=enodeb_network_reply_dict['cells']
+#cells_4g_network=enodeb_network_reply_dict['cells']
 # print(type(cells_network))
 
 
@@ -58,18 +58,7 @@ enodeb_live_reply = r_enodeb_live.json()
 
 enodeb_live_reply_dict = enodeb_live_reply[0]
 # print(enodeb_network_reply_dict['mccMncs'])
-cells_4g_live=enodeb_network_reply_dict['cells']
+#cells_4g_live=enodeb_network_reply_dict['cells']
 
 for x in enodeb_network_reply_dict:
-    if x == "name":
-        print(enodeb_network_reply_dict[x])
-    elif enodeb_network_reply_dict[x] != enodeb_live_reply_dict[x]:
-        if type(enodeb_network_reply_dict[x]) == str:
-            print(str(x) + " Valor en Network: " + enodeb_network_reply_dict[x] + " Valor en live: " + enodeb_live_reply_dict[x])
-        elif type(enodeb_network_reply_dict[x]) == list:
-            list1 = enodeb_network_reply_dict[x]
-            list2 = enodeb_live_reply_dict[x]
-
-            for y in list1:
-                if list1[y] != list2[y]
-                    print(str(y) + " Valor en Network: " + list1[y] + " Valor en live: " + list2[y])
+    print(str(x) + " es de tipo: " + str(type(x)) + " y " + str(enodeb_network_reply_dict[x]) + " es de tipo: " + str(type(enodeb_network_reply_dict[x])))
