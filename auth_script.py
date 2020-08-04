@@ -21,12 +21,14 @@ Auth_reply = r_auth.json()
 token = Auth_reply['access_token']
 # print(token)
 
-GMOC_ID = "145176118"
+GMOC_ID_1 = "145176118"
+GMOC_ID_2 = "144598834"
 
 url_enodeb = 'http://10.132.59.6:25080/rest/radio/4g/enodeb/xid'
 
 params_enodeb_network = {
-    "xid": GMOC_ID,
+    "xid": GMOC_ID_1,
+    "xid": GMOC_ID_2,
     "perspective":"NETWORK"
 }
 
@@ -43,7 +45,19 @@ headers_enodeb = {
 r_enodeb_network = requests.get(url_enodeb, headers=headers_enodeb, params=params_enodeb_network)
 
 print("Codigo respuesta enodeb network: " + str(r_enodeb_network.status_code))
+enodeb_network_reply = r_enodeb_network.json()
+
+enodeb_network_reply_dict = enodeb_network_reply[0]
+# print(enodeb_network_reply_dict['mccMncs'])
+cells_4g_network=enodeb_network_reply_dict['cells']
+# print(type(cells_network))
+
 
 r_enodeb_live = requests.get(url_enodeb, headers=headers_enodeb, params=params_enodeb_live)
 
 print("Codigo respuesta enodeb live: " + str(r_enodeb_live.status_code))
+enodeb_live_reply = r_enodeb_live.json()
+
+enodeb_live_reply_dict = enodeb_live_reply[0]
+# print(enodeb_network_reply_dict['mccMncs'])
+cells_4g_live=enodeb_network_reply_dict['cells']
