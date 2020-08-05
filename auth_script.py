@@ -60,5 +60,22 @@ enodeb_live_reply_dict = enodeb_live_reply[0]
 # print(enodeb_network_reply_dict['mccMncs'])
 #cells_4g_live=enodeb_network_reply_dict['cells']
 
+print ("NOMBRE_ELEMENTO;ATRIBUTO;VALOR")
+
+NOMBRE_ELEMENTO = ""
+
 for x in enodeb_network_reply_dict:
-    print(str(x) + " es de tipo: " + str(type(x)) + " y " + str(enodeb_network_reply_dict[x]) + " es de tipo: " + str(type(enodeb_network_reply_dict[x])))
+    
+    if type(enodeb_network_reply_dict[x]) == dict :
+        temp_dict = enodeb_network_reply_dict[x]['cells']
+        for y in temp_dict :
+            for z in y :
+                if z == 'id' or z == 'name':
+                    NOMBRE_ELEMENTO = y[z]
+               # print(str(z) + " es de tipo: " + str(type(z)) + " y " + str(y[z]) + " es de tipo: " + str(type(y[z])))
+                print(str(NOMBRE_ELEMENTO) + ";" + str(z) + ";" + str(y[z]) )
+
+    else :
+        if x == 'name' or x == 'name' :
+            NOMBRE_ELEMENTO = enodeb_network_reply_dict[x]
+        print(str(NOMBRE_ELEMENTO) + ";" + str(x) + ";" + str(enodeb_network_reply_dict[x]))
