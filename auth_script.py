@@ -60,22 +60,26 @@ enodeb_live_reply_dict = enodeb_live_reply[0]
 # print(enodeb_network_reply_dict['mccMncs'])
 #cells_4g_live=enodeb_network_reply_dict['cells']
 
-print ("NOMBRE_ELEMENTO;ATRIBUTO;VALOR")
+print ("NOMBRE_ELEMENTO;ATRIBUTO;VALOR_NETWORK;VALOR_LIVE")
 
 NOMBRE_ELEMENTO = ""
 
 for x in enodeb_network_reply_dict:
     
     if type(enodeb_network_reply_dict[x]) == dict :
-        temp_dict = enodeb_network_reply_dict[x]['cells']
-        for y in temp_dict :
+        temp_dict_network = enodeb_network_reply_dict[x]['cells']
+        temp_dict_live = enodeb_live_reply_dict[x]['cells']
+        list_index = 0
+        for y in temp_dict_network :
+            y_live = temp_dict_live[list_index]
+            list_index = list_index + 1
             for z in y :
                 if z == 'id' or z == 'name':
                     NOMBRE_ELEMENTO = y[z]
                # print(str(z) + " es de tipo: " + str(type(z)) + " y " + str(y[z]) + " es de tipo: " + str(type(y[z])))
-                print(str(NOMBRE_ELEMENTO) + ";" + str(z) + ";" + str(y[z]) )
+                print(str(NOMBRE_ELEMENTO) + ";" + str(z) + ";" + str(y[z]) + ";" + str(y_live[z]))
 
     else :
         if x == 'name' or x == 'name' :
             NOMBRE_ELEMENTO = enodeb_network_reply_dict[x]
-        print(str(NOMBRE_ELEMENTO) + ";" + str(x) + ";" + str(enodeb_network_reply_dict[x]))
+        print(str(NOMBRE_ELEMENTO) + ";" + str(x) + ";" + str(enodeb_network_reply_dict[x]) + ";" + str(enodeb_live_reply_dict[x]))
