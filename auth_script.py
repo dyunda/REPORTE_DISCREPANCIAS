@@ -1,4 +1,5 @@
 import requests
+import csv
 
 url_auth = 'http://10.132.59.6:25080/auth/realms/OSS/protocol/openid-connect/token'
 payload_auth = {
@@ -60,26 +61,32 @@ enodeb_live_reply_dict = enodeb_live_reply[0]
 # print(enodeb_network_reply_dict['mccMncs'])
 #cells_4g_live=enodeb_network_reply_dict['cells']
 
-print ("NOMBRE_ELEMENTO;ATRIBUTO;VALOR_NETWORK;VALOR_LIVE")
+with open('test2.csv', mode='w') as enodeb_file:
+    enodeb_writer = csv.writer(enodeb_file, delimiter=';', quotechar= '"', quoting=csv.QUOTE_MINIMAL)
 
-NOMBRE_ELEMENTO = ""
+    row = ['NOMBRE_ELEMENTO','ATRIBUTO','VALOR_NETWORK','VALOR_LIVE']
+    enodeb_writer.writerow(row)
 
-for x in enodeb_network_reply_dict:
-    
-    if type(enodeb_network_reply_dict[x]) == dict :
-        temp_dict_network = enodeb_network_reply_dict[x]['cells']
-        temp_dict_live = enodeb_live_reply_dict[x]['cells']
-        list_index = 0
-        for y in temp_dict_network :
-            y_live = temp_dict_live[list_index]
-            list_index = list_index + 1
-            for z in y :
-                if z == 'id' or z == 'name':
-                    NOMBRE_ELEMENTO = y[z]
-               # print(str(z) + " es de tipo: " + str(type(z)) + " y " + str(y[z]) + " es de tipo: " + str(type(y[z])))
-                print(str(NOMBRE_ELEMENTO) + ";" + str(z) + ";" + str(y[z]) + ";" + str(y_live[z]))
+    NOMBRE_ELEMENTO = ""
 
-    else :
-        if x == 'name' or x == 'name' :
-            NOMBRE_ELEMENTO = enodeb_network_reply_dict[x]
-        print(str(NOMBRE_ELEMENTO) + ";" + str(x) + ";" + str(enodeb_network_reply_dict[x]) + ";" + str(enodeb_live_reply_dict[x]))
+    for x in enodeb_network_reply_dict:
+
+        if type(enodeb_network_reply_dict[x]) == dict :
+            temp_dict_network = enodeb_network_reply_dict[x]['cells']
+            temp_dict_live = enodeb_live_reply_dict[x]['cells']
+            list_index = 0
+            for y in temp_dict_network :
+                y_live = temp_dict_live[list_index]
+                list_index = list_index + 1
+                for z in y :
+                    if z == 'id' or z == 'name':
+                        NOMBRE_ELEMENTO = y[z]
+                   # print(str(z) + " es de tipo: " + str(type(z)) + " y " + str(y[z]) + " es de tipo: " + str(type(y[z])))
+                    row = [str(NOMBRE_ELEMENTO) , str(z) , str(y[z]) , str(y_live[z])]
+                    enodeb_writer.writerow(row)
+
+        else :
+            if x == 'name' or x == 'name' :
+                NOMBRE_ELEMENTO = enodeb_network_reply_dict[x]
+                row = [str(NOMBRE_ELEMENTO) , str(x) , str(enodeb_network_reply_dict[x]) , str(enodeb_live_reply_dict[x])]
+                enodeb_writer.writerow(row)
