@@ -6,11 +6,11 @@ class JdbcTest1 {
     try
     {
       // Step 1: "Load" the JDBC driver
-      Class.forName("oracle.jdbc.dr"); 
+      Class.forName("oracle.jdbc.driver.OracleDriver"); 
 
       // Step 2: Establish the connection to the database 
-      String url = "jdbc:msql://:1114/contact_mgr"; 
-      Connection conn = DriverManager.getConnection(url,"user1","password");  
+      String url = "jdbc:oracle:thin:@//10.132.55.239:1523/LATKRC"; 
+      Connection conn = DriverManager.getConnection(url,"LAT_NETWORK_REPOSITORY","insight");  
     }
     catch (Exception e)
     {
